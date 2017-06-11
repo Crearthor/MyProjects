@@ -1,0 +1,50 @@
+<?php
+$form = $this->form;
+$form->prepare();
+$form->setAttribute('action', $this->url(NULL, ['controller'=>'login', 'action' => 'process']));
+?>
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+
+<div class="container">
+    <?=$this->form()->openTag($form)?>
+    <div class="row">
+        <div class="col-md-offset-3 col-md-5">
+            <?=$this->form()->openTag($form)?>
+            <fieldset>
+                <legend>Sign In </legend>
+
+                <div class="control-group">
+                    <label class="control-label"><?=$this->formLabel($form->get('login'))?></label>
+                    <div class="controls">
+                        <?=$this->formElement($form->get('login')->setAttributes(['class'=>'form-control'])) ?>
+                        <?=$this->formElementErrors($form->get('login'))?>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label"><?=$this->formLabel($form->get('password'))?>:</label>
+                    <div class="controls">
+                        <?=$this->formElement($form->get('password')->setAttributes(['class'=>'form-control'])) ?>
+                        <?=$this->formElementErrors($form->get('password'))?>
+                    </div>
+                </div>
+
+
+
+                <div class="control-group">
+                    <label class="control-label"></label>
+                    <div class="controls">
+                        <?=$this->formElement($form->get('submit')->setAttributes(['class'=>'btn btn-primary '])) ?>
+                    </div>
+                </div>
+            </fieldset>
+            <?=$this->form()->closeTag()?>
+
+
+            <br />
+            <a href="/users">Homepage</a>
+
+        </div>
+    </div>
+</div>
+

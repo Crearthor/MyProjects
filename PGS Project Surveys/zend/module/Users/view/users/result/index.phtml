@@ -1,0 +1,26 @@
+<?php
+$title = 'Results';
+$this->headTitle($title);
+
+?>
+<h1><?php echo $this->escapeHtml($title); ?></h1>
+
+
+<table class="table">
+    <tr>
+        <th>Date</th>
+        <th>&nbsp;</th>
+    </tr>
+    <?php foreach ($results as $result) : ?>
+        <tr>
+            <td><?php echo $this->escapeHtml($result->date);?></td>
+            <td>
+                <a href="<?php
+                echo $this->url('result',
+                    array('action'=>'view', 'idsurvey' => $result->idsurvey, 'idresult' => $result->idresult));?>" class="btn-primary btn">View</a>
+            </td>
+        </tr>
+    <?php endforeach; ?>
+</table>
+<a href="<?= $this->url('survey', array('action'=>'index'));?>" class="btn btn-primary">Back</a>
+<a href="<?php echo $this->url('survey', array('action'=>'logout'));?>" class="btn-primary btn">Logout</a>

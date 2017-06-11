@@ -1,0 +1,58 @@
+<?php
+use Zend\Session\Container;
+$title = 'Edit survey';
+$this->headTitle($title);
+?>
+    <h1><?php echo $this->escapeHtml($title); ?></h1>
+
+<?php
+$form = $this->form;
+$form->setAttribute('action', $this->url(
+    'survey',
+    array(
+        'action' => 'edit',
+        'idsurvey'     => $this->idsurvey,
+    )
+));
+$form->prepare();
+
+echo $this->form()->openTag($form);
+echo $this->formHidden($form->get('idsurvey'));
+echo $this->formRow($form->get('title'));
+echo $this->formRow($form->get('description'));
+echo $this->formhidden($form->get('date'));
+echo $this->formSubmit($form->get('submit'));
+
+$session = new Container('creation');
+
+{?>
+
+    <div class="controls">
+        <label class="control-label"><?=$this->formLabel($form->get('text'))?>:</label>
+        <?=$this->formElement($form->get('text'))?>
+        <?=$this->formElement($form->get('submitnq'))?>
+        <?=$this->formElement($form->get('submitq'))?>
+    </div>
+    <?php
+}
+?>
+    <div class="controls">
+        <label class="control-label"><?=$this->formLabel($form->get('text'))?>:</label>
+        <?=$this->formElement($form->get('text'))?>
+        <label class="control-label"><?=$this->formLabel($form->get('type'))?>:</label>
+        <?=$this->formElement($form->get('type'))?>
+        <?=$this->formElement($form->get('submitda'))?>
+        <?=$this->formElement($form->get('submita'))?>
+    </div>
+    <?php
+?>
+<div class="control-group">
+    <label class="control-label"></label>
+    <div class="controls">
+        <?=$this->formElement($form->get('submitc'))?>
+        <?=$this->formElementErrors($form->get('submitc'))?>
+    </div>
+</div>
+<?php
+echo $this->form()->closeTag();
+?>

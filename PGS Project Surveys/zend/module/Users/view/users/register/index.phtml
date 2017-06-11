@@ -1,0 +1,84 @@
+<?php
+$form = $this->form;
+$form->prepare();
+$form->setAttribute('action', $this->url(NULL, ['controller'=>'Register', 'action' => 'process']));
+?>
+
+<div class="container">
+
+    <?php if ($this->error): ?>
+        <p class="error">
+            Wystąpił błąd podczas parsowania. Szczegóły poniżej.
+        </p>
+    <?php endif ?>
+
+
+    <?=$this->form()->openTag($form)?>
+    <fieldset class="col-md-offset-3 col-md-4">
+        <legend>Rejestracja użytkownika</legend>
+
+        <div class="control-group">
+            <label class="control-label"><?=$this->formLabel($form->get('login'))?></label>
+            <div class="controls">
+                <?=$this->formElement($form->get('login')->setAttributes(['class'=>'form-control'])) ?>
+                <?=$this->formElementErrors($form->get('login'))?>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label"><?=$this->formLabel($form->get('email'));?></label>
+            <div class="controls">
+                <?=$this->formElement($form->get('email')->setAttributes(['class'=>'form-control'])) ?>
+                <?=$this->formElementErrors($form->get('email'))?>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label"><?=$this->formLabel($form->get('password'))?>:</label>
+            <div class="controls">
+                <?=$this->formElement($form->get('password')->setAttributes(['class'=>'form-control'])) ?>
+                <?=$this->formElementErrors($form->get('password'))?>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label"><?=$this->formLabel($form->get('confirm_password'))?>:</label>
+            <div class="controls">
+                <?=$this->formElement($form->get('confirm_password')->setAttributes(['class'=>'form-control'])) ?>
+                <?=$this->formElementErrors($form->get('confirm_password'))?>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label"><?=$this->formLabel($form->get('name'))?></label>
+            <div class="controls">
+                <?=$this->formElement($form->get('name')->setAttributes(['class'=>'form-control'])) ?>
+                <?=$this->formElementErrors($form->get('name'))?>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label"><?=$this->formLabel($form->get('surname'))?></label>
+            <div class="controls">
+                <?=$this->formElement($form->get('surname')->setAttributes(['class'=>'form-control'])) ?>
+                <?=$this->formElementErrors($form->get('surname'))?>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label"></label>
+            <div class="controls">
+                <?=$this->formElement($form->get('submit')->setAttributes(['class'=>'btn btn-primary'])) ?>
+                <?=$this->formElementErrors($form->get('submit'))?>
+            </div>
+        </div>
+        <br>
+        <a href="/users">Homepage</a>
+    </fieldset>
+    <?=$this->form()->closeTag()?>
+
+
+
+
+
+</div>

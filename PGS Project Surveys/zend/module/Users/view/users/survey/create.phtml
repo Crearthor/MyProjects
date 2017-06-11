@@ -1,0 +1,97 @@
+<?php
+$form = $this->form;
+$form->prepare();
+
+
+
+$form->get('submit')->setAttributes(['class'=>'btn btn-primary']);
+?>
+
+<?php
+// module/Album/view/album/album/add.phtml:
+use Zend\Session\Container; //dodane
+
+$title = 'Create new survey';
+$this->headTitle($title);
+?>
+<div class="container">
+    <h1>
+        <?php echo $this->escapeHtml($title); ?>
+    </h1>
+
+    <div class="col-lg-8 form-group well well-lg">
+        <br>
+        <?php
+        $form->setAttribute('action', $this->url('survey', array('action' => 'create')));
+        $form->prepare();
+
+        echo $this->form()->openTag($form);
+        echo $this->formHidden($form->get('idsurvey'));
+        echo $this->formRow($form->get('title')->setAttributes(['class'=>'form-control']));
+        echo $this->formRow($form->get('description')->setAttributes(['class'=>'form-control']));
+        echo $this->formhidden($form->get('date'));
+
+        $session = new Container('creation');
+        ?>
+        <div class="controls col-lg-12  ">
+            <label class="control-label "><?php echo $session->offsetGet('nquestion') . "/" . $session->offsetGet('AllQ') . ".", $this->formLabel($form->get('text')) ?>
+                :</label>
+            <?= $this->formElement($form->get('text')->setAttributes(['class'=>'form-control'])) ?>
+            <br>
+            <?= $this->formElement($form->get('submitdq')->setAttributes(['class'=>'btn btn-primary'])) ?>
+            <?= $this->formElement($form->get('submitq')->setAttributes(['class'=>'btn btn-primary'])) ?>
+
+            <?php
+            if ($session->offsetGet('nquestion') > 1) {
+                ?>
+                <?= $this->formElement($form->get('submitpq')->setAttributes(['class'=>'btn btn-primary'])) ?>
+                <?php
+            }
+            ?>
+
+            <?php
+            if ($session->offsetGet('nquestion') < ($session->offsetGet('AllQ'))) {
+                ?>
+                <?= $this->formElement($form->get('submitnq')->setAttributes(['class'=>'btn btn-primary'])) ?>
+                <?php
+            }
+            ?>
+            <?= $this->formElementErrors($form->get('text')->setAttributes(['class'=>'form-control'])) ?>
+            <br>
+            <br>
+        <?php
+        for ($i = 1; $i <= $session->offsetGet('nanswer'); $i++) {
+        ?>
+
+            <div>
+            <label class="control-label "><?= $this->formLabel($form->get('text' . $i)->setAttributes(['class'=>'form-control'])) ?>:</label>
+            <?= $this->formElement($form->get("text" . $i)) ?><br>
+
+            <label class="control-label" ><?= $this->formLabel($form->get("type" . $i)) ?>:</label>
+            <?= $this->formElement($form->get("type" . $i)) ?>
+            <?= $this->formElement($form->get('submitda' . $i)->setAttributes(['class'=>'btn btn-primary'])) ?>
+            <?= $this->formElementErrors($form->get('text' . $i)) ?>
+            <?php
+            }
+            echo $this->formElement($form->get('submita')->setAttributes(['class'=>'btn btn-primary ']));
+            ?>
+            </div>
+
+
+        <br>
+        <a href="<?php echo $this->url('survey', array('action' => 'logout')); ?>" class="btn-primary btn ">Logout</a>
+
+        <a href="<?php echo $this->url('survey',
+            array('action' => 'delete', 'idsurvey' => $session->offsetGet('idsurvey'))); ?>" class="btn-primary btn">Delete Survey</a>
+            <a href="<?= $this->url('survey', array('action'=>'index'));?>" class="btn btn-primary">Back</a>
+        <?php
+
+        echo $this->formElement($form->get('submit')->setAttributes(['class'=>'btn btn-primary']));
+        echo $this->form()->closeTag();
+        ?>
+    </div>
+    </div>
+
+
+
+

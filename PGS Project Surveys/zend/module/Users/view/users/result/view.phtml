@@ -1,0 +1,44 @@
+<?php
+$title = 'Survey Results';
+$this->headTitle($title);
+
+?>
+<h1><?php echo $this->escapeHtml($title); ?></h1>
+
+
+<ol>
+
+    <?php foreach ($this->questions as $question) : ?>
+
+        <b>
+            <li><?= $this->escapeHtml($question->text); ?></li>
+        </b>
+        <ul>
+            <?php foreach ($this->resultsdata as $resultdata) : ?>
+                <?php foreach ($this->answers as $answer) : ?>
+
+                    <?php if ($resultdata->idanswer == $answer->idanswer) : ?>
+                        <?php if ($question->idquestion == $answer->idquestion) : ?>
+
+                            <?php if ($answer->type1 == 'text') : ?>
+                                <li>   <?= $this->escapeHtml($resultdata->text); ?></li>
+                            <?php endif; ?>
+                            <?php if ($answer->type1 != 'text') : ?>
+                                <li> <?= $this->escapeHtml($answer->text1); ?></li>
+                            <?php endif; ?>
+
+                        <?php  endif;  ?>
+                    <?php endif; ?>
+                <?php endforeach; ?>
+
+            <?php endforeach; ?>
+
+        </ul>
+    <?php endforeach; ?>
+
+
+</ol>
+
+
+<a href="<?php echo $this->url('result',
+    array('action' => 'index', 'idsurvey' => $question->idsurvey)); ?>" class="btn-primary btn">Back</a>

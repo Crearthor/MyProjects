@@ -1,0 +1,129 @@
+<script>
+
+    if(localStorage.getItem('id') == null)
+    {
+
+        localStorage.setItem('id',<?= $this->idsurvey ?>);
+    }
+    function checkedBox(val,name,idq)
+    {
+
+        if(name == "radio")
+        {
+            name = name + idq;
+            localStorage.removeItem(name);
+            localStorage.setItem(name,val);
+        }
+        else
+        {
+            if(name == "text") {
+                localStorage.setItem(val,idq);
+            }
+            else
+            {
+                if(document.getElementById(val).checked)
+                {
+
+                    localStorage.setItem(val, val);
+                }
+                else
+                {
+                    localStorage.removeItem(val);
+                }
+            }
+
+        }
+
+    }
+
+
+
+
+
+</script>
+<table class="table">
+    <!--<p id="test1"></p>-->
+    <?php foreach ($this->paginator as $question) :  ?>
+        <tr>
+            <td><?= $this->escapeHtml($question->text); ?></td>
+        <?php foreach ($this->answers as $answer) :  ?>
+            <tr>
+                <?php if ($answer->idquestion == $question->idquestion) : ?>
+                    <td>
+
+                        <?php if ($answer->type1 == 'text') : ?>
+                            <input type="text" id="<?= $answer->idanswer ?>" onchange="checkedBox(this.id,this.name,this.value)" name="text">
+                        <?php endif; ?>
+                        <?php if ($answer->type1 == 'checkbox') : ?>
+                            <input type="checkbox" id="<?= $answer->idanswer ?>" onchange="checkedBox(this.id,this.name,<?= $question->idquestion ?>)" name="check">
+                        <?php endif; ?>
+                        <?php if ($answer->type1 == 'radio') : ?>
+
+                            <input type="radio" id="<?= $answer->idanswer ?>" onclick="checkedBox(this.id,this.name,<?= $question->idquestion ?>)" name="radio">
+                        <?php endif; ?>
+                        <script>
+
+                            if(document.getElementById(<?= $answer->idanswer ?>).type == "radio")
+                            {
+                                if(localStorage.getItem("radio"+<?= $question->idquestion ?>) ==<?= $answer->idanswer ?>)
+                                {
+                                    document.getElementById(<?= $answer->idanswer ?>).checked = true;
+                                }
+                                else
+                                {
+                                    document.getElementById(<?= $answer->idanswer ?>).checked = false;
+                                }
+                            }
+                            else
+                            {
+                                if(document.getElementById(<?= $answer->idanswer ?>).type == "text")
+                                {
+                                    if (localStorage.getItem(<?= $answer->idanswer ?>))
+                                    {
+                                        document.getElementById(<?= $answer->idanswer ?>).setAttribute('value',localStorage.getItem(<?= $answer->idanswer ?>));
+                                    }
+                                    else
+                                    {
+                                        document.getElementById(<?= $answer->idanswer ?>).value = "";
+                                    }
+                                }
+                                else
+                                {
+                                    if (localStorage.getItem(<?= $answer->idanswer ?>))
+                                    {
+                                        document.getElementById(<?= $answer->idanswer ?>).checked = true;
+                                    }
+                                    else
+                                    {
+                                        document.getElementById(<?= $answer->idanswer ?>).checked = false;
+                                    }
+                                }
+                            }
+
+                        </script>
+                        <?= $this->escapeHtml($answer->text1); ?>
+                    </td>
+                <?php endif; ?>
+            </tr>
+        <?php endforeach; ?>
+        </tr>
+
+    <?php endforeach; ?>
+</table>
+
+<?= $this->paginationControl(
+// the paginator object
+    $this->paginator,
+    // the scrolling style
+    'sliding',
+    // the partial to use to render the control
+    ['users/partial/paginator.phtml', 'Users'],
+    // the route to link to when a user clicks a control link
+    [
+        'route' => 'fill'
+    ]
+);
+?>
+
+
+<a href="<?= $this->url('survey', array('action'=>'index'));?>" class="btn btn-primary" onclick="localStorage.clear()">Back</a>

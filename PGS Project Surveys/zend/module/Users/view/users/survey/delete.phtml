@@ -1,0 +1,24 @@
+<?php
+
+$title = 'Delete Survey';
+$this->headTitle($title);
+?>
+<h1><?php echo $this->escapeHtml($title); ?></h1>
+
+<p>Are you sure that you want to delete
+    '<?php echo $this->escapeHtml($survey->title); ?>' by
+    '<?php echo $this->escapeHtml($survey->artist); ?>'?
+</p>
+<?php
+$url = $this->url('survey', array(
+    'action' => 'delete',
+    'idsurvey'     => $this->idsurvey,
+));
+?>
+<form action="<?php echo $url; ?>" method="post">
+    <div>
+        <input type="hidden" name="idsurvey" value="<?php echo (int) $survey->idsurvey; ?>" />
+        <input type="submit" name="del" class="btn btn-success" value="Yes" />
+        <input type="submit" name="del" value="No" class="btn btn btn-danger" />
+    </div>
+</form>
