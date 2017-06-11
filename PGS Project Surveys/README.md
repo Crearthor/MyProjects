@@ -1,77 +1,56 @@
-ZendSkeletonApplication
-=======================
+# PGSProject
 
-Introduction
-------------
-This is a simple, skeleton application using the ZF2 MVC layer and module
-systems. This application is meant to be used as a starting place for those
-looking to get their feet wet with ZF2.
+> 	LINUX
+1. To run our project first you need to install LAMP (Linux, Apache, MySQL and PHP). To accoplish this process just follow  steps under this link https://www.atlantic.net/community/howto/install-linux-apache-mysql-php-lamp-stack-on-ubuntu-16-04/.
 
-Installation
-------------
+2. After that add the code below to the 00-default.conf (/etc/apache2/sites-availble/). It is necessary to allow .htaccess files.
+	<br>
+  <*/VirtualHost>
+	<br>
+  <*Directory "/var/www/html">
+	<br>
+    AllowOverride All
+	<br>
+  <*/Directory>
 
-Using Composer (recommended)
-----------------------------
-The recommended way to get a working copy of this project is to clone the repository
-and use `composer` to install dependencies using the `create-project` command:
+3. Put zend directory to /var/www/html/. Then type this -> (localhost/zend/public) to the address bar. Enjoy!
+  
+  
+> 	WINDOWS	
+1. To run our project first you need to install XAMPP. You can download it from this site: https://www.apachefriends.org/download.html.
 
-    curl -s https://getcomposer.org/installer | php --
-    php composer.phar create-project -sdev --repository-url="https://packages.zendframework.com" zendframework/skeleton-application path/to/install
+2. After successfull installation open XAMPP Control Panel and click "Start" for MySQL and Apache.
 
-Alternately, clone the repository and manually invoke `composer` using the shipped
-`composer.phar`:
+3. Put "zend" directory to  xampp/htdocs.
 
-    cd my/project/dir
-    git clone git://github.com/zendframework/ZendSkeletonApplication.git
-    cd ZendSkeletonApplication
-    php composer.phar self-update
-    php composer.phar install
+4. Now you can open it by using the Built-in PHP web Server or Apache Web Server
+	a)Using the Built-in PHP web Server
+		
+		-open terminal in xampp/htdocs/zend you can do it by clicking SHIFT+RMB and choosing "Open Command Window here"
+		-next you must write this command "php -S 0.0.0.0:8080 -t public public/index.php" and press ENTER
+		-now you can open project by typing http://localhost:8080 to the address bar.
+		-you must do it every time if you close terminal or stop commmand
+	
+	b)Using Apache Web Server
+	
+	
+		-in XAMPP Control Panel click Config for Apache and choose Apache(httpd.conf)
+		-paste this code at the end, change [XAMPP DIRECTORY] to your xampp directory
+		
 
-(The `self-update` directive is to ensure you have an up-to-date `composer.phar`
-available.)
-
-Another alternative for downloading the project is to grab it via `curl`, and
-then pass it to `tar`:
-
-    cd my/project/dir
-    curl -#L https://github.com/zendframework/ZendSkeletonApplication/tarball/master | tar xz --strip-components=1
-
-You would then invoke `composer` to install dependencies per the previous
-example.
-
-Using Git submodules
---------------------
-Alternatively, you can install using native git submodules:
-
-    git clone git://github.com/zendframework/ZendSkeletonApplication.git --recursive
-
-Web Server Setup
-----------------
-
-### PHP CLI Server
-
-The simplest way to get started if you are using PHP 5.4 or above is to start the internal PHP cli-server in the root directory:
-
-    php -S 0.0.0.0:8080 -t public/ public/index.php
-
-This will start the cli-server on port 8080, and bind it to all network
-interfaces.
-
-**Note: ** The built-in CLI server is *for development only*.
-
-### Apache Setup
-
-To setup apache, setup a virtual host to point to the public/ directory of the
-project and you should be ready to go! It should look something like below:
-
-    <VirtualHost *:80>
-        ServerName zf2-tutorial.localhost
-        DocumentRoot /path/to/zf2-tutorial/public
-        SetEnv APPLICATION_ENV "development"
-        <Directory /path/to/zf2-tutorial/public>
-            DirectoryIndex index.php
-            AllowOverride All
-            Order allow,deny
-            Allow from all
-        </Directory>
-    </VirtualHost>
+		<VirtualHost *:80>
+		     ServerName zend.localhost
+		     DocumentRoot "[XAMPP DIRECTORY]/htdocs/zend/public"
+		     SetEnv APPLICATION_ENV "development"
+		     <Directory [XAMPP DIRECTORY]/htdocs/zend/public>
+			 DirectoryIndex index.php
+			 AllowOverride All
+			 Order allow,deny
+			 Allow from all
+			  </Directory>
+		</VirtualHost></code>
+ 
+ 		-open c:\windows\system32\drivers\etc\hosts file as administrator in some text editor and paste this :
+		127.0.0.1 zf-tutorial.localhost localhost
+		-Restart Apahche by clicking Stop in XAMPP Control Panel for apache and Start
+		-now you can open project by typing http://zend.localhost/users in address bar in your web browser 
