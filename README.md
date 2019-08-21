@@ -7,4 +7,4 @@ Projekty wykonane przeze mnie bądź z moim udziałem
 
 3.Saper - popularna gra Saper, utworzona w c++ w oparciu o biblioteke SFML. Jest to projekt zrobiony przeze mnie na pierwszym roku studiów.
 
-4.Edytor obrazów - java -projekt przygotowany w grupie dwu osobowej. Jest to prosty edytor obrazów utworzony w javie. 
+4.Edytor obrazów - java -projekt przygotowany w grupie dwuosobowej. Jest to prosty edytor obrazów utworzony w javie. 
